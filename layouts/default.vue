@@ -1,7 +1,9 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="flex flex-col min-h-screen">
     <NavBar />
-    <slot />
+    <main class="flex-grow">
+      <slot />
+    </main>
     <FooterSection />
   </div>
 </template> 
