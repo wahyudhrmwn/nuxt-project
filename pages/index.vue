@@ -1,82 +1,366 @@
 <template>
-  <div class="pt-16">
-    <!-- Hero Section dengan background gradient -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-violet-600/[.15] via-transparent">
-      <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
-        <!-- Title -->
-        <div class="mt-5 max-w-xl text-center mx-auto">
-          <h1 class="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-gray-200">
-            Build Your Next Project <span class="text-blue-600">Faster</span>
-          </h1> 
-        </div>
+  <div class="pages-index pt-16">
+    <div
+      class="overflow-hidden bg-gradient-to-b from-violet-600/[.15] via-transparent"
+    >
+      <div class="min-h-[calc(100vh-4rem)]">
+        <!-- Section Slider -->
+        <section
+          class="page-index__section-slider w-full mx-auto bg-green-500 text-center h-[300px]"
+        >
+          <swiper
+            :pagination="{
+              dynamicBullets: true,
+              clickable: true,
+            }"
+            :modules="modules"
+            class="w-full h-full bg-gradient-to-r from-[#134e5e] to-[#71b280]"
+          >
+            <swiper-slide
+              v-for="(slide, index) in slides"
+              :key="index"
+              class="text-left text-lg bg-transparent block"
+            >
+              <div class="flex h-full px-12">
+                <div
+                  class="flex-1 flex items-center justify-center overflow-hidden"
+                >
+                  <img
+                    :src="slide.image"
+                    :alt="slide.title"
+                    class="w-full h-[250px] object-cover rounded-lg shadow-md"
+                  />
+                </div>
+                <div class="flex-1 p-6 flex flex-col justify-center text-white">
+                  <span
+                    class="text-sm uppercase text-[#9EFFB3] font-semibold mb-2"
+                    >{{ slide.category }}</span
+                  >
+                  <h2 class="text-2xl font-bold text-white mb-3">
+                    {{ slide.title }}
+                  </h2>
+                  <p class="text-base text-white/85 mb-5 leading-relaxed">
+                    {{ slide.description }}
+                  </p>
+                  <button
+                    @click="navigateToDetail(slide.id)"
+                    class="self-start px-5 py-2.5 bg-[#4CAF50] text-white border-none rounded font-semibold cursor-pointer transition-colors hover:bg-[#388E3C]"
+                  >
+                    Lihat Detail
+                  </button>
+                </div>
+              </div>
+            </swiper-slide>
 
-        <div class="mt-5 max-w-3xl text-center mx-auto">
-          <p class="text-lg text-gray-600 dark:text-gray-400">Professional website template with modern design and powerful features.</p>
-        </div>
+            <div class="swiper-pagination"></div>
+          </swiper>
+        </section>
 
-        <!-- Buttons -->
-        <div class="mt-8 gap-3 flex justify-center">
-          <a class="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg hover:shadow-xl hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-8 dark:focus:ring-offset-gray-800" href="#">
-            Get started
-            <svg class="w-3 h-3" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Features Section -->
-    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-      <!-- Section Header -->
-      <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-        <h2 class="text-3xl font-bold md:text-4xl md:leading-tight dark:text-white">Features</h2>
-        <p class="mt-4 text-gray-600 dark:text-gray-400">Everything you need to build your next project</p>
-      </div>
-
-      <!-- Cards Grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="(card, index) in cards" :key="index" class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-          <div class="h-52 flex flex-col justify-center items-center bg-gradient-to-r from-blue-600 to-violet-600 rounded-t-xl">
-            <svg class="w-28 h-28 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+        <!-- Section Info -->
+        <section class="page-index__section-info w-full py-6 text-center">
+          <div class="flex items-center mx-12 justify-center">
+            <div class="flex flex-1 min-h-16 items-center">
+              <div
+                class="flex-initial w-3/12 h-16 content-center justify-items-center"
+              >
+                <div
+                  class="w-12 h-12 rounded-full bg-gray-200 justify-items-center items-center content-center"
+                >
+                  <Truck class="text-green-700" />
+                </div>
+              </div>
+              <div
+                class="flex-initial w-9/12 h-16 block justify-center text-start text-wrap"
+              >
+                <div class="text-base font-bold">Free Shipping and Return</div>
+                <div class="text-sm font-normal">
+                  For all orders over $100, we offer free shipping and return
+                  services.
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-1 min-h-16 items-center">
+              <div
+                class="flex-initial w-3/12 h-16 content-center justify-items-center"
+              >
+                <div
+                  class="w-12 h-12 rounded-full bg-gray-200 justify-items-center items-center content-center"
+                >
+                  <ShieldAlert class="text-green-700" />
+                </div>
+              </div>
+              <div
+                class="flex-initial w-9/12 h-16 block justify-center text-start text-wrap"
+              >
+                <div class="text-base font-bold">Secure Payment</div>
+                <div class="text-sm font-normal">
+                  We ensure secure payment with SSL encryption.
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-1 min-h-16 items-center">
+              <div
+                class="flex-initial w-3/12 h-16 content-center justify-items-center"
+              >
+                <div
+                  class="w-12 h-12 rounded-full bg-gray-200 justify-items-center items-center content-center"
+                >
+                  <HandCoins class="text-green-700" />
+                </div>
+              </div>
+              <div
+                class="flex-initial w-9/12 h-16 block justify-center text-start text-wrap"
+              >
+                <div class="text-base font-bold">Money Back Guarantee</div>
+                <div class="text-sm font-normal">
+                  Returning items is easy. We offer a 30-day return policy.
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-1 min-h-16 items-center">
+              <div
+                class="flex-initial w-3/12 h-16 content-center justify-items-center"
+              >
+                <div
+                  class="w-12 h-12 rounded-full bg-gray-200 justify-items-center items-center content-center"
+                >
+                  <PhoneCall class="text-green-700" />
+                </div>
+              </div>
+              <div
+                class="flex-initial w-9/12 h-16 block justify-center text-start text-wrap"
+              >
+                <div class="text-base font-bold">24/7 Customer Support</div>
+                <div class="text-sm font-normal">
+                  Friendly customer support available 24/7.
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="p-4 md:p-6 flex-grow">
-            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-300">
-              {{ card.title }}
-            </h3>
-            <p class="mt-3 text-gray-600 dark:text-gray-400">
-              {{ card.content }}
-            </p>
+        </section>
+
+        <!-- Section Features -->
+        <section
+          class="page-index__section-features w-full bg-yellow-500 text-center"
+        >
+          <div class="grid grid-cols-3 gap-4 py-6 px-12">
+            <div class="relative overflow-hidden rounded-lg shadow-lg">
+              <img class="w-full h-56 object-cover" src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsdWUlMjBza3l8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" alt="Feature 1">
+              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <div class="px-4 py-2 text-center">
+                  <h3 class="text-xl font-bold text-white">Feature One</h3>
+                  <p class="text-sm text-white mt-2">Discover our amazing feature one</p>
+                </div>
+              </div>
+            </div>
+            <div class="relative overflow-hidden rounded-lg shadow-lg">
+              <img class="w-full h-56 object-cover" src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVycGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Feature 2">
+              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <div class="px-4 py-2 text-center">
+                  <h3 class="text-xl font-bold text-white">Feature Two</h3>
+                  <p class="text-sm text-white mt-2">Explore our innovative feature two</p>
+                </div>
+              </div>
+            </div>
+            <div class="relative overflow-hidden rounded-lg shadow-lg">
+              <img class="w-full h-56 object-cover" src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z3JhZGllbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" alt="Feature 3">
+              <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <div class="px-4 py-2 text-center">
+                  <h3 class="text-xl font-bold text-white">Feature Three</h3>
+                  <p class="text-sm text-white mt-2">Learn about our feature three</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mt-auto border-t border-gray-200 dark:border-gray-700">
-            <a class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-b-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
-              Learn more
-              <svg class="w-3 h-3" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
+        </section>
+
+        <!-- Section Products -->
+        <section
+          class="page-index__section-products-trending w-full bg-yellow-500 text-center"
+        >
+          <h1
+            class="text-4xl font-bold bg-gray-500 mx-12 text-gray-800 dark:text-gray-200"
+          >
+            Build Your Next Project Faster
+          </h1>
+        </section>
+
+        <!-- Section Products -->
+        <section
+          class="page-index__section-products-spesial-offer w-full bg-yellow-500 text-center"
+        >
+          <h1
+            class="text-4xl font-bold bg-gray-500 mx-12 text-gray-800 dark:text-gray-200"
+          >
+            Build Your Next Project Faster
+          </h1>
+        </section>
+
+        <!-- Section Products -->
+        <section
+          class="page-index__section-products-top-selling w-full bg-yellow-500 text-center"
+        >
+          <h1
+            class="text-4xl font-bold bg-gray-500 mx-12 text-gray-800 dark:text-gray-200"
+          >
+            Build Your Next Project Faster
+          </h1>
+        </section>
+
+        <!-- Section Articles  -->
+        <section
+          class="page-index__section-articles w-full bg-yellow-500 text-center"
+        >
+          <h1
+            class="text-4xl font-bold bg-gray-500 mx-12 text-gray-800 dark:text-gray-200"
+          >
+            Build Your Next Project Faster
+          </h1>
+        </section>
+
+        <!-- Section Questions -->
+        <section
+          class="page-index__section-questions w-full bg-yellow-500 text-center"
+        >
+          <h1
+            class="text-4xl font-bold bg-gray-500 mx-12 text-gray-800 dark:text-gray-200"
+          >
+            Build Your Next Project Faster
+          </h1>
+        </section>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-const cards = [
+import { Truck, ShieldAlert, HandCoins, PhoneCall } from "lucide-vue-next";
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { ref } from "vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+// import required modules
+import { Pagination } from "swiper/modules";
+// Define modules for Swiper
+const modules = [Pagination];
+// Data slides dengan URL gambar yang bisa dirender langsung
+const slides = ref([
   {
-    title: "Modern Design",
-    content: "Clean and modern UI components built with Tailwind CSS and Preline UI.",
+    id: 1,
+    image:
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    category: "Produk Terbaru",
+    title: "Smartphone XYZ Series 12",
+    description:
+      "Smartphone terbaru dengan teknologi kamera terbaik dan performa luar biasa untuk semua kebutuhan Anda.",
   },
   {
-    title: "Responsive Layout",
-    content: "Fully responsive design that looks great on all devices and screen sizes.",
+    id: 2,
+    image:
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    category: "Promo Spesial",
+    title: "Laptop UltraBook Pro",
+    description:
+      "Laptop premium dengan baterai tahan 18 jam dan desain ultra tipis. Dapatkan diskon 20% minggu ini!",
   },
   {
-    title: "Easy Integration",
-    content: "Simple to customize and integrate with your existing Vue.js projects.",
+    id: 3,
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    category: "Paling Populer",
+    title: "Wireless Headphone XZ-300",
+    description:
+      "Nikmati musik dengan kualitas suara terbaik dan noise cancelling. Nyaman dipakai sepanjang hari.",
   },
-];
+  {
+    id: 4,
+    image:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    category: "Tren Terbaru",
+    title: "SmartWatch Health Plus",
+    description:
+      "Monitor kesehatan dan fitness Anda dengan SmartWatch paling canggih. Fitur deteksi detak jantung & oksigen darah.",
+  },
+  {
+    id: 5,
+    image:
+      "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    category: "Edisi Terbatas",
+    title: "Kamera Mirrorless Pro X",
+    description:
+      "Kamera mirrorless dengan sensor terbaik di kelasnya. Sempurna untuk fotografi profesional.",
+  },
+]);
+
+// Function to navigate to detail page
+const navigateToDetail = (id) => {
+  // Replace with your actual navigation logic
+  console.log(`Navigating to product detail with ID: ${id}`);
+  // For example with vue-router
+  // router.push(`/product/${id}`);
+};
+
+// Kode ini membantu memastikan pagination Swiper terinisialisasi dengan benar
+// Ini berguna jika pagination tidak muncul dengan benar saat pertama kali dimuat
+// Jika slider berfungsi dengan baik tanpa kode ini, bisa dihapus
+// Namun jika ada masalah dengan pagination dots, sebaiknya dipertahankan
+// onMounted(() => {
+//   // Force update pagination after component is mounted
+//   nextTick(() => {
+//     const swiperInstance = document.querySelector('.mySwiper')?.__swiper__;
+//     if (swiperInstance) {
+//       swiperInstance.pagination.update();
+//       swiperInstance.pagination.render();
+//     }
+//   });
+// });
 </script>
+
+<style scoped>
+/* Pagination styling updated to match green theme */
+:deep(.swiper-pagination-bullet) {
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  background: white;
+}
+
+:deep(.swiper-pagination-bullet-active-main) {
+  background: white;
+}
+
+:deep(.swiper-pagination-bullet-active-prev),
+:deep(.swiper-pagination-bullet-active-next) {
+  transform: scale(0.9);
+}
+
+:deep(.swiper-pagination-bullet-active-prev-prev),
+:deep(.swiper-pagination-bullet-active-next-next) {
+  transform: scale(0.8);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .slide-container {
+    flex-direction: column;
+  }
+
+  .slide-image,
+  .slide-info {
+    flex: none;
+    width: 100%;
+  }
+
+  .slide-image {
+    height: 200px;
+  }
+
+  .slide-info {
+    padding: 15px 0;
+  }
+}
+</style>

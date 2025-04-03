@@ -7,3 +7,11 @@
     <FooterSection />
   </div>
 </template> 
+
+<script setup>
+import NavBar from '@/components/navbar/NavBar.vue';
+import FooterSection from '@/components/footer/FooterSection.vue';
+</script>
+
+
+
